@@ -1,3 +1,7 @@
+'''
+Written by Viraj Jayasinghe
+'''
+
 import string
 import sys
 
@@ -13,10 +17,12 @@ if __name__=="__main__":
     power_new=[]
     clients_new=[]
 
+    #pre process the main incomes data
     for i in range(len(power)):
         power_new.append(power[i].split(','))
         power_new[-1][-1]=power_new[-1][-1].split('\n')[0]
 
+    #pre process the wifi clients data
     for i in range(len(clients)):
         clients_new.append(clients[i].split(','))
         clients_new[-1][-1] = clients_new[-1][-1].split('\n')[0]
@@ -27,6 +33,7 @@ if __name__=="__main__":
     ref_2=power_new[1][72]
     ref_3=power_new[1][92]
 
+    #first, process the power data from main incomers
     power=[]
     for i in range(1, len(power_new)):
         if(power_new[i][0][0:2]!=ref_date):
@@ -36,6 +43,7 @@ if __name__=="__main__":
             ref_2 = power_new[i][72]
             ref_3 = power_new[i][92]
 
+    #now, process the wifi clients data
     ref_date=clients_new[1][0][8:10]
     tmp=0
     clients=[]
@@ -52,6 +60,7 @@ if __name__=="__main__":
 
     print(clients)
 
+    #print out everything on a string and send it to the local drive on a csv file
     out_str="date,users(daily),level_1,level_2,level_3\n"
     for i in range(len(clients)):
         out_str+="{},{},{},{},{}\n".format(i+1, clients[i], power[i][0], power[i][1], power[i][2])
